@@ -1,10 +1,13 @@
 package main
 
 import (
+	"backend/db"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	db.Init()
+
 	r := gin.Default()
 
 	r.GET("/greeting", func(c *gin.Context) {
