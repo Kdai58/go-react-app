@@ -1,17 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// controller
-	http.HandleFunc("/", echoHello)
-	// port
-	http.ListenAndServe(":8000", nil)
+	r := gin.Default()
+
+	r.GET("/greeting", func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+
+		c.JSON(200, gin.H{
+			"message": "hello, world",
+		})
+	})
+	r.Run(":8000")
 }
 
-func echoHello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<h1>Hello World</h1>")
-}
