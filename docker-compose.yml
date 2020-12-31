@@ -1,0 +1,68 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    container_name: frontend_container
+    tty: true
+    volumes:
+      - ./frontend:/usr/src/app/frontend
+    command: sh -c "cd /usr/src/app/frontend  && npm start"
+    ports:
+      - 3000:3000
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    container_name: backend_container
+    tty: true
+    volumes:
+      - ./backend:/usr/src/app/backend
+    command: sh -c "cd /usr/src/app/backend/main  && go run main.go"
+    ports:
+      - 8000:8000
+
+  nginx:
+    image: nginx
+    container_name: nginx_container
+    ports:
+      - 80:80
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: go-react-app
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/mysql_data:/var/lib/mysql
+    ports:
+    - 3306:3306
+    links:
+      - backend
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    links:
+      - mysql
+    ports:
+      - 1234:80
+    volumes:
+      - /sessions

@@ -1,0 +1,11 @@
+.vscode/
+.DS_Store
+.idea
+
+# mysql
+conf.d/
+initdb.d/
+mysql_data/
+
+# nginx
+nginx.conf
