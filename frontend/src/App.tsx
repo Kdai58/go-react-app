@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios'
 
-const App: React.SFC<Props> = props => {
+import Tasks from './components/Tasks';
+import Details from './components/Details';
 
-  const [ message, setMessage ] = useState<string>('');
+const App: React.FC<Props> = props => {
 
-  // const getMessage = async () => {
-  //   let r = await fetch('http://localhost/api/greeting');
-  //   let message = await r.json();
-  //   setMessage(message.message);
-  // }
-
-  // useEffect(() => {
-  //   getMessage();
-  // }, [])
+  // const [ message, setMessage ] = useState<string>('');
  
-  useEffect(() => {
-    axios
-      .get('http://localhost/api/greeting')
-      .then(res => {
-        setMessage(res.data.message);
-        console.log(res.data);
-      })
-      .catch(error => console.log(error));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_API_ENDPOINT + 'greeting')
+  //     .then(res => {
+  //       setMessage(res.data.message);
+  //       console.log(res.data);
+  //     })
+  //     .catch(error => console.log(error));
+  // }, []);
 
   return (
-    <h1>{message}</h1>
+
+      <BrowserRouter>
+          <main className="container">
+            <Switch>
+                <Route exact path="/" component={Tasks}></Route>
+                <Route exact path="/:id" component={Details}></Route>
+            </Switch>
+          </main>
+      </BrowserRouter>
   )
 }
 
