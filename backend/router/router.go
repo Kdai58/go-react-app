@@ -34,6 +34,7 @@ func Router(dbConn *gorm.DB) {
 			"message": "hello, world",
 		})
 	})
-	r.GET("/todo", todoHandler.GetAll) // 一覧画面
+	r.GET("/todo", todoHandler.GetAll)      // 一覧画面
+	r.POST("/todo", todoHandler.CreateTask) // 新規作成
 	r.Run(":8000")
 }

@@ -16,3 +16,16 @@ func (h *TodoHandler) GetAll(c *gin.Context) {
 	h.Db.Find(&todos)
 	c.JSON(http.StatusOK, todos)
 }
+
+func (h *TodoHandler) CreateTask(c *gin.Context) {
+	todo := models.Todo{}
+	err := c.BindJSON(&todo)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	h.Db.Create(&todo)
+	c.JSON(http.StatusOK, &todo)
+}
