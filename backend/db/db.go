@@ -1,17 +1,19 @@
 package db
+
 import (
+	"backend/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"backend/models"
 )
+
 func Init() *gorm.DB {
 	const (
-		DBMS = "mysql"
-		USER = "root"
-		PASS = "root"
+		DBMS     = "mysql"
+		USER     = "root"
+		PASS     = "root"
 		PROTOCOL = "tcp(mysql:3306)"
-		DBNAME = "go-react-app"
-		CONNECT = USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+		DBNAME   = "go-react-app"
+		CONNECT  = USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?" + "charset=utf8mb4&parseTime=True&loc=Local"
 	)
 	db, err := gorm.Open(DBMS, CONNECT)
 

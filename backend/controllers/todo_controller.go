@@ -36,3 +36,17 @@ func (h *TodoHandler) EditTask(c *gin.Context) {
 	h.Db.First(&todo, id)
 	c.JSON(http.StatusOK, todo)
 }
+
+func (h *TodoHandler) UpdateTask(c *gin.Context) {
+	todo := models.Todo{}
+	id := c.Param("id")
+	h.Db.First(&todo, id)
+	err := c.BindJSON(&todo)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+	h.Db.Save(&todo)
+	c.JSON(http.StatusOK, &todo)
+}
