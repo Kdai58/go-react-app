@@ -29,3 +29,10 @@ func (h *TodoHandler) CreateTask(c *gin.Context) {
 	h.Db.Create(&todo)
 	c.JSON(http.StatusOK, &todo)
 }
+
+func (h *TodoHandler) EditTask(c *gin.Context) {
+	todo := models.Todo{}
+	id := c.Param("id")
+	h.Db.First(&todo, id)
+	c.JSON(http.StatusOK, todo)
+}
