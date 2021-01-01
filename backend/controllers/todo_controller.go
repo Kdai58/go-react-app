@@ -50,3 +50,18 @@ func (h *TodoHandler) UpdateTask(c *gin.Context) {
 	h.Db.Save(&todo)
 	c.JSON(http.StatusOK, &todo)
 }
+
+func (h *TodoHandler) DeleteTask(c *gin.Context) {
+	todo := models.Todo{}
+	id := c.Param("id")
+	h.Db.First(&todo, id)
+	err := h.Db.First(&todo, id).Error
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+	h.Db.Delete(&todo)
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ok",
+	})
+}
