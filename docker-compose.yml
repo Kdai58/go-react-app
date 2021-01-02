@@ -9,7 +9,7 @@ services:
     volumes:
       - ./frontend:/usr/src/app/frontend
       - node_modules_volume:/usr/src/app/node_modules
-    command: sh -c "cd /usr/src/app/frontend  && npm start"
+    # command: sh -c "cd /usr/src/app/frontend  && npm start"
     ports:
       - 3000:3000
 

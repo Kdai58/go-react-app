@@ -8,7 +8,7 @@ import Details from './components/Details';
 const App: React.FC<Props> = props => {
 
   // const [ message, setMessage ] = useState<string>('');
- 
+
   // useEffect(() => {
   //   axios
   //     .get(process.env.REACT_APP_API_ENDPOINT + 'greeting')

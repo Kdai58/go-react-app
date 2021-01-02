@@ -19,7 +19,7 @@ export interface Task {
 
 const Tasks: React.FC<TasksProps> = (props) => {
 
-    const [ tasks, setTasks ] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<Task[]>([]);
 
     useEffect(() => {
         axios
