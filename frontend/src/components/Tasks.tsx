@@ -21,38 +21,30 @@ const Tasks: React.FC<TasksProps> = (props) => {
 
     const [tasks, setTasks] = useState<Task[]>([]);
 
-    useEffect(() => {
+    const getTasks = () => {
         axios
-            .get(process.env.REACT_APP_API_ENDPOINT + 'todo')
-            .then(res => {
-                setTasks(res.data);
-                console.log(res.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
+        .get(process.env.REACT_APP_API_ENDPOINT + 'todo')
+        .then(res => {
+            setTasks(res.data);
+            console.log(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+
+    useEffect(getTasks, []);
 
     return (
-        // <section>
-        //     <ListGroup>
-        //         <ListGroup.Item>Cras justo odio</ListGroup.Item>
-        //         <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        //         <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-        //         <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-        //         <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-        //     </ListGroup>
-        // </section>
-
-        <section className="row my-2">
-            <ul className="col-md-6 offset-md-3 list-group">
+        <section>
+            <ListGroup>
                 {tasks.map(task => (
-                    <li key={task.ID} className="list-group-item d-flex justify-content-between">
+                    <ListGroup.Item key={task.ID}>
                         <h3>{task.Title}</h3>
                         <Link to={'/${task.ID}'}>
                             <Button variant="primary" className="mr-2">Get Details</Button>
                         </Link>
-                    </li>
+                    </ListGroup.Item>
                 ))}
-            </ul>
+            </ListGroup>
         </section>
     );
 }

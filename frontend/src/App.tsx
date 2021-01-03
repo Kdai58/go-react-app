@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios';
 
-import Tasks from './components/Tasks';
-import Details from './components/Details';
+import Header from './components/Header';
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
 
-const App: React.FC<Props> = props => {
+// import Tasks from './components/Tasks';
+// import Details from './components/Details';
 
-  // const [ message, setMessage ] = useState<string>('');
+export interface TasksProps { }
 
-  // useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_API_ENDPOINT + 'greeting')
-  //     .then(res => {
-  //       setMessage(res.data.message);
-  //       console.log(res.data);
-  //     })
-  //     .catch(error => console.log(error));
-  // }, []);
+const App: React.FC<TasksProps> = props => {
 
   return (
 
-      <BrowserRouter>
-          <main className="container">
-            <Switch>
-                <Route exact path="/" component={Tasks}></Route>
-                <Route exact path="/:id" component={Details}></Route>
-            </Switch>
-          </main>
-      </BrowserRouter>
-  )
+      // <BrowserRouter>
+      //     <main className="container">
+      //       <Switch>
+      //           <Route exact path="/" component={Tasks}></Route>
+      //           <Route exact path="/:id" component={Details}></Route>
+      //       </Switch>
+      //     </main>
+      // </BrowserRouter>
+
+    <div>
+      <Header />
+      <TodoList />
+      <AddTodo />
+    </div>
+  );
 }
 
 export default App;

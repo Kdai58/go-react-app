@@ -31,7 +31,8 @@ const Details: React.FC<DetailsProps> = ({ match: { params: { id } } }) => {
     useEffect(getTask, []);
 
     return (
-        <h1>hoge</h1>
+        <h1>{task.Title}</h1>
+
     );
 
 }
