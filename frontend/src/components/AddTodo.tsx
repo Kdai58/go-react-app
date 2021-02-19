@@ -12,8 +12,9 @@ const AddTodo: React.FC<AddTodoProps> = props => {
   const [show, setShow] = useState(false);
 
   const addTodo = () => {
-    const Post = async (data: {Title: string}) => {
+    const Post = async (data: {Title: string, Text: string}) => {
       const response: AxiosResponse<ITask[]> = await axios.post(process.env.REACT_APP_API_ENDPOINT + "todo", data)
+      console.log('hogehogehoge')
     }
     const data = {
       Title: title,

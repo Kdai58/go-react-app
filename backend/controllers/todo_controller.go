@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"backend/models"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"net/http"
 )
 
 type TodoHandler struct {

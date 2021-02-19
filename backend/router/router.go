@@ -1,10 +1,11 @@
 package router
 
 import (
+	"time"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"time"
 
 	"backend/controllers"
 )
@@ -16,9 +17,16 @@ func Router(dbConn *gorm.DB) {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"PUT", "PATCH", "DELETE", "POST", "GET"},
-		AllowHeaders:     []string{"Origin"},
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"PUT", "PATCH", "DELETE", "POST", "GET"},
+		AllowHeaders: []string{
+			"Origin",
+			"Access-Control-Allow-Headers",
+			"Content-Type",
+			"Content-Length",
+			"Accept-Encoding",
+			"X-CSRF-Token",
+			"Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
